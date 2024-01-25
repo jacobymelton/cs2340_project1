@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.collegeschedulerapp.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_assessments"
+        android:name="com.example.collegeschedulerapp.ui.assessments.AssessmentsFragment"
+        android:label="@string/menu_assessments"
+        tools:layout="@layout/fragment_assessments" />
+
+    <fragment
+        android:id="@+id/nav_tasks"
+        android:name="com.example.collegeschedulerapp.ui.tasks.TasksFragment"
+        android:label="@string/menu_tasks"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
+        android:id="@+id/nav_classes"
+        android:name="com.example.collegeschedulerapp.ui.classes.ClassesFragment"
+        android:label="@string/menu_classes"
+        tools:layout="@layout/fragment_classes" />
+
+    <fragment
+        android:id="@+id/nav_assignments"
+        android:name="com.example.collegeschedulerapp.ui.assignments.AssignmentsFragment"
+        android:label="@string/menu_assignments"
+        tools:layout="@layout/fragment_assignments" />
+
+    <activity
+        android:id="@+id/nav_newtab"
+        android:name="com.example.collegeschedulerapp.ui.newtab.NewTabActivity"
+        android:label="@string/menu_newtab"
+        tools:layout="@layout/activity_newtab" />
+
+</navigation>
