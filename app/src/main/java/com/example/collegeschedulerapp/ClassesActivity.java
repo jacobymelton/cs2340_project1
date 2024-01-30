@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.DisplayCutout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +35,7 @@ public class ClassesActivity extends AppCompatActivity {
     ArrayAdapter<String> listAdapter;
     Button addButton;
     EditText textInput;
+    private String edit_text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,57 @@ public class ClassesActivity extends AppCompatActivity {
         classList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                final EditText input = new EditText(ClassesActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                new AlertDialog.Builder(ClassesActivity.this).setTitle("Edit or remove " + classes.get(i) + " from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ClassesActivity.this);
+                        builder.setTitle("Input new text");
+                        final EditText input = new EditText(ClassesActivity.this);
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builder.setView(input);
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                edit_text = input.getText().toString();
+                                if (edit_text == null || edit_text.trim().equals("")) {
+                                    Toast.makeText(ClassesActivity.this, "Item is empty", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                                if (classes.contains(edit_text)) {
+                                    Toast.makeText(ClassesActivity.this, "Class has already been added", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                                classes.remove(i);
+                                classes.add(i, edit_text);
+                                listAdapter.notifyDataSetChanged();
+                                closeKeyboard();
+                                input.setText("");
+                                saveData();
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+                    }
+                }).setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        classes.remove(i);
+                        listAdapter.notifyDataSetChanged();
+                        saveData();
+                    }
+                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+                /*
                 new AlertDialog.Builder(ClassesActivity.this).setTitle("Remove " + classes.get(i) + " from the list?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -66,6 +119,8 @@ public class ClassesActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 }).create().show();
+
+                 */
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
