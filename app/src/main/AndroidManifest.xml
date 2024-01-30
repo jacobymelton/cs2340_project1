@@ -16,9 +16,6 @@
             android:name=".TaskActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.TasksActivity"
-            android:exported="false" />
-        <activity
             android:name=".ClassesActivity"
             android:exported="false" />
         <activity

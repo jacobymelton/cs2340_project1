@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.collegeschedulerapp.ClassesActivity;
+import com.example.collegeschedulerapp.Course;
 import com.example.collegeschedulerapp.MainActivity;
 import com.example.collegeschedulerapp.databinding.FragmentHomeBinding;
 

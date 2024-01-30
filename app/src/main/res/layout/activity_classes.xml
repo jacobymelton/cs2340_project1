@@ -18,23 +18,23 @@
         android:textSize="40sp" />
 
 
-    <EditText
-        android:id="@+id/classAddInfo"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/frame_class"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="15"
-        android:hint="@string/class_add_prompt"
-        android:inputType="text"
-        android:visibility="visible" />
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="223dp" >
 
-    <Button
-        android:id="@+id/button_addClass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/add_class_button" />
+        <Button
+            android:id="@+id/button_addClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/add_class_button"
+            android:onClick="this"
+            tools:ignore="onClick" />
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/class_home_button"

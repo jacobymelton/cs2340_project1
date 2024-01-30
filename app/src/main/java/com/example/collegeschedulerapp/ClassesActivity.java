@@ -1,6 +1,7 @@
 package com.example.collegeschedulerapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.example.collegeschedulerapp.ui.AddClassFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,12 +35,15 @@ public class ClassesActivity extends AppCompatActivity {
     private static final String SHARED_PREFS = "persist data";
     private static final String SHARED_PREFS_KEY = "list";
     ListView classList;
-    ArrayList<String> classes = new ArrayList<>();
-    ArrayAdapter<String> listAdapter;
+    ArrayList<Course> classes = new ArrayList<>();
+    ArrayAdapter<Course> listAdapter;
     Button addButton;
     Button homeButton;
-    EditText textInput;
     private String edit_text = "";
+    private String input_text = "";
+
+    boolean replacement = false;
+    int pos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,6 @@ public class ClassesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_classes);
 
         addButton = (Button) findViewById(R.id.button_addClass);
-        textInput = (EditText) findViewById(R.id.classAddInfo);
         classList = (ListView) findViewById(R.id.classList);
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, classes);
 
@@ -66,43 +71,18 @@ public class ClassesActivity extends AppCompatActivity {
         classList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                final EditText input = new EditText(ClassesActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                //final EditText input = new EditText(ClassesActivity.this);
+                //input.setInputType(InputType.TYPE_CLASS_TEXT);
 
                 new AlertDialog.Builder(ClassesActivity.this).setTitle("Edit or remove " + classes.get(i) + " from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ClassesActivity.this);
-                        builder.setTitle("Input new text");
-                        final EditText input = new EditText(ClassesActivity.this);
-                        input.setInputType(InputType.TYPE_CLASS_TEXT);
-                        builder.setView(input);
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                edit_text = input.getText().toString();
-                                if (edit_text.trim().equals("")) {
-                                    Toast.makeText(ClassesActivity.this, "Item is empty", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                                if (classes.contains(edit_text)) {
-                                    Toast.makeText(ClassesActivity.this, "Class has already been added", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                                classes.remove(i);
-                                classes.add(i, edit_text);
-                                listAdapter.notifyDataSetChanged();
-                                closeKeyboard();
-                                input.setText("");
-                                saveData();
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create().show();
+                        replacement = true;
+                        pos = i;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_class, new AddClassFragment()).commit();
+                        addButton.setVisibility(View.GONE);
                     }
+
                 }).setNegativeButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -121,27 +101,8 @@ public class ClassesActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ClassesActivity.this);
-                builder.setTitle("Enter class data");
-                final EditText input = new EditText(ClassesActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                String text = textInput.getText().toString();
-
-                if (text == null || text.trim().equals("")) {
-                    Toast.makeText(ClassesActivity.this, "Item is empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (classes.contains(text)) {
-                    Toast.makeText(ClassesActivity.this, "Class has already been added", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                classes.add(text);
-                listAdapter.notifyDataSetChanged();
-                closeKeyboard();
-                textInput.setText("");
-
-                saveData();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_class, new AddClassFragment()).commit();
+                addButton.setVisibility(View.GONE);
             }
         });
 
@@ -165,8 +126,29 @@ public class ClassesActivity extends AppCompatActivity {
             return;
         }
 
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Course>>(){}.getType();
         classes.addAll((gson.fromJson(json, type)));
+    }
+
+    public boolean getReplacement() {
+        return replacement;
+    }
+
+    public void addToClasses(Course course) {
+        if (course == null) {
+
+        } else if (classes.contains(course)) {
+            Toast.makeText(ClassesActivity.this, "Class has already been added", Toast.LENGTH_SHORT).show();
+        } else if (replacement){
+            classes.remove(pos);
+            classes.add(pos, course);
+            replacement = false;
+        } else {
+            classes.add(course);
+        }
+        listAdapter.notifyDataSetChanged();
+        saveData();
+        addButton.setVisibility(View.VISIBLE);
     }
 
     // method from https://www.geeksforgeeks.org/how-to-programmatically-hide-android-soft-keyboard/
