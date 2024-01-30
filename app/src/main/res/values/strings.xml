@@ -16,7 +16,7 @@
 
 
     <string name="assignments_fragment_text">This is the assignments fragment.</string>
-    <string name="classes_fragment_text">This is the classes fragment.</string>
+    <string name="classes_fragment_text">Classes</string>
     <string name="new_activity_text">This is the new activity.</string>
     <string name="assessments_fragment_text">This is the assessments fragment.</string>
     <string name="tasks_fragment_text">This is the tasks fragment.</string>
@@ -25,4 +25,9 @@
     <string name="home_assignment_button">Add new assignment</string>
     <string name="home_class_button">Add new class</string>
     <string name="home_task_button">Add new task</string>
+    <string name="add_class_button">Add Class</string>
+    <string name="add_new_class">Add New Class</string>
+    <string name="add_class_name">Class name</string>
+    <string name="edit_class_name">Class name</string>
+    <string name="class_add_prompt">Enter: \"Name, Professor, Time\"</string>
 </resources>
