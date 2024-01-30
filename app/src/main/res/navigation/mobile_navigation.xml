@@ -21,7 +21,7 @@
         android:id="@+id/nav_tasks"
         android:name="com.example.collegeschedulerapp.ui.tasks.TasksFragment"
         android:label="@string/menu_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/activity_task" />
 
     <activity
         android:id="@+id/nav_classes"
