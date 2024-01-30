@@ -121,6 +121,11 @@ public class ClassesActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ClassesActivity.this);
+                builder.setTitle("Enter class data");
+                final EditText input = new EditText(ClassesActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
                 String text = textInput.getText().toString();
 
                 if (text == null || text.trim().equals("")) {
