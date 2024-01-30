@@ -33,7 +33,14 @@
         android:id="@+id/nav_assignments"
         android:name="com.example.collegeschedulerapp.ui.assignments.AssignmentsFragment"
         android:label="@string/menu_assignments"
-        tools:layout="@layout/fragment_assignments" />
+        tools:layout="@layout/fragment_assignments">
+        <action
+            android:id="@+id/nav_assignments_to_nav_classes"
+            app:destination="@id/nav_classes" />
+        <action
+            android:id="@+id/nav_assignments_to_nav_tasks"
+            app:destination="@+id/nav_tasks"/>
+    </fragment>
 
     <activity
         android:id="@+id/nav_newtab"

@@ -15,7 +15,7 @@
     <string name="menu_newtab">Add New</string>
 
 
-    <string name="assignments_fragment_text">This is the assignments fragment.</string>
+    <string name="assignments_fragment_text">Enter the Assignment Details Below</string>
     <string name="classes_fragment_text">This is the classes fragment.</string>
     <string name="new_activity_text">This is the new activity.</string>
     <string name="assessments_fragment_text">This is the assessments fragment.</string>
@@ -25,4 +25,9 @@
     <string name="home_assignment_button">Add new assignment</string>
     <string name="home_class_button">Add new class</string>
     <string name="home_task_button">Add new task</string>
+    <string name="assignment_input_hint">Assignment Name</string>
+    <string name="assignment_due_date_hint">Due Date</string>
+    <string name="className">Class Name</string>
+    <string name="taskList">Task List</string>
+
 </resources>
