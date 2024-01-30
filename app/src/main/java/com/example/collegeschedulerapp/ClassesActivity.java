@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -34,6 +35,7 @@ public class ClassesActivity extends AppCompatActivity {
     ArrayList<String> classes = new ArrayList<>();
     ArrayAdapter<String> listAdapter;
     Button addButton;
+    Button homeButton;
     EditText textInput;
     private String edit_text = "";
 
@@ -51,6 +53,15 @@ public class ClassesActivity extends AppCompatActivity {
         listAdapter.notifyDataSetChanged();
 
         loadData();
+
+        homeButton = findViewById(R.id.class_home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ClassesActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         classList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,7 +81,7 @@ public class ClassesActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 edit_text = input.getText().toString();
-                                if (edit_text == null || edit_text.trim().equals("")) {
+                                if (edit_text.trim().equals("")) {
                                     Toast.makeText(ClassesActivity.this, "Item is empty", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 }
@@ -105,22 +116,6 @@ public class ClassesActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 }).create().show();
-                /*
-                new AlertDialog.Builder(ClassesActivity.this).setTitle("Remove " + classes.get(i) + " from the list?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        classes.remove(i);
-                        listAdapter.notifyDataSetChanged();
-                        saveData();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).create().show();
-
-                 */
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
