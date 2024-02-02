@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        /*
         binding.classButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +48,8 @@ public class HomeFragment extends Fragment {
                         .navigate(R.id.action_nav_home_to_nav_assessments);
             }
         });
+
+         */
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

@@ -40,6 +40,7 @@ import com.example.collegeschedulerapp.MainActivity;
 import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentAssessmentsBinding;
 import com.example.collegeschedulerapp.ui.AddClassFragment;
+import com.example.collegeschedulerapp.ui.Date;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -83,10 +84,6 @@ public class AssessmentsFragment extends Fragment {
 
         if (assessment == null) {
 
-        } else if (assessment.getName().equals("empty")) {
-            for (int i = 0; i < assessments.size() / 2; i++) {
-                assessments.remove(i);
-            }
         } else {
             if (assessments.contains(assessment)) {
                 Toast.makeText(getActivity(), "Class has already been added", Toast.LENGTH_SHORT).show();
@@ -99,6 +96,7 @@ public class AssessmentsFragment extends Fragment {
                 }
 
             }
+            sortAssessments();
             listAdapter.notifyDataSetChanged();
             saveData();
         }
@@ -161,6 +159,23 @@ public class AssessmentsFragment extends Fragment {
 
         Type type = new TypeToken<ArrayList<Assessment>>(){}.getType();
         assessments.addAll((gson.fromJson(json, type)));
+    }
+
+    public void sortAssessments() {
+        int n = assessments.size();
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < n; j++) {
+                Date date1 = assessments.get(j).getDate();
+                Date date2 = assessments.get(min).getDate();
+                if (date1.compareTo(date2) < 0) {
+                    min = j;
+                }
+            }
+            Assessment temp = assessments.get(min);
+            assessments.set(min, assessments.get(i));
+            assessments.set(i, temp);
+        }
     }
 
 

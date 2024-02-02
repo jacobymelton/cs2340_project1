@@ -31,8 +31,6 @@
     <string name="edit_class_name">Class name</string>
     <string name="class_add_prompt">Enter: \"Name, Professor, Time\"</string>
     <string name="class_home_button_text">Return to Home Page</string>
-    <string name="nav_open">Open</string>
-    <string name="nav_close">Close</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addClass_header_text">Class Info</string>
     <string name="class_name_text">Class name</string>
@@ -44,7 +42,7 @@
     <string name="add_assessment_button">Add Assessment</string>
     <string name="assessment_name_text">Assessment name</string>
     <string name="course">Course</string>
-    <string name="date">Date</string>
+    <string name="date">Date: MM/DD/YY</string>
     <string name="save_assessment_information">Save assessment information</string>
     <string name="time">Time</string>
     <string name="college_scheduler_app">College Scheduler App</string>

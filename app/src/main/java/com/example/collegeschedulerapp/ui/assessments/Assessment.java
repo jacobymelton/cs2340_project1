@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import com.example.collegeschedulerapp.Course;
+import com.example.collegeschedulerapp.ui.Date;
 
 import kotlinx.parcelize.Parcelize;
 
@@ -41,8 +42,8 @@ public class Assessment implements Parcelable {
         location = in.readString();
     }
 
-    public String getName() {
-        return name;
+    public Date getDate() {
+        return new Date(date);
     }
 
     @NonNull

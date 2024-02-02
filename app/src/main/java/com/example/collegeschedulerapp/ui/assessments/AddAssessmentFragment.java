@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.collegeschedulerapp.ClassesActivity;
 import com.example.collegeschedulerapp.Course;
+import com.example.collegeschedulerapp.MainActivity;
 import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentAddAssessmentBinding;
 import com.example.collegeschedulerapp.databinding.FragmentAddClassBinding;
@@ -44,7 +46,6 @@ public class AddAssessmentFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         binding.assessmentSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +79,16 @@ public class AddAssessmentFragment extends Fragment {
             }
         });
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
     public void onDestroyView() {
