@@ -9,8 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -34,6 +32,7 @@ import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentAssessmentsBinding;
 import com.example.collegeschedulerapp.ui.Date;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import io.reactivex.Single;
@@ -41,10 +40,7 @@ import io.reactivex.Single;
 public class AssessmentsFragment extends Fragment {
 
     private FragmentAssessmentsBinding binding;
-    //private static final String SHARED_PREFS = "persist data";
-    //private static final String SHARED_PREFS_KEY = "list";
 
-    RxDataStore<Preferences> dataStoreRX;
     ListView assessmentList;
     ArrayList<Assessment> assessments = new ArrayList<>();
     ArrayAdapter<Assessment> listAdapter;
@@ -57,7 +53,7 @@ public class AssessmentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAssessmentsBinding.inflate(inflater, container, false);
-        dataStoreRX = new RxPreferenceDataStoreBuilder(getActivity(), "assessments").build();
+        loadData();
         return binding.getRoot();
     }
 
@@ -92,6 +88,7 @@ public class AssessmentsFragment extends Fragment {
             }
             sortAssessments();
             listAdapter.notifyDataSetChanged();
+            saveData();
         }
 
         assessmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,6 +109,7 @@ public class AssessmentsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         assessments.remove(i);
                         listAdapter.notifyDataSetChanged();
+                        saveData();
                     }
                 }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -131,66 +129,28 @@ public class AssessmentsFragment extends Fragment {
     }
 
 
-    /*
+
     private void saveData() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Gson gson = new Gson();
-        String jsonString = gson.toJson(assessments);
-        editor.putString(SHARED_PREFS_KEY, jsonString);
+        String json = gson.toJson(assessments);
+        editor.putString("assessment list", json);
         editor.apply();
     }
 
     private void loadData() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sp.getString(SHARED_PREFS_KEY, null);
-        if (json.isEmpty()) {
-            return;
+        String json = sp.getString("assessment list", null);
+        Type type = new TypeToken<ArrayList<Assessment>>() {}.getType();
+        assessments = gson.fromJson(json, type);
+
+        if (assessments == null) {
+            assessments = new ArrayList<>();
         }
-
-        Type type = new TypeToken<ArrayList<Assessment>>(){}.getType();
-        assessments.addAll((gson.fromJson(json, type)));
     }
 
-     */
-
-    public boolean putStringValue(String Key, String value) {
-        boolean returnvalue;
-        Preferences pref_error = new Preferences() {
-            @Override
-            public <T> boolean contains(@NonNull Preferences.Key<T> key) {
-                return false;
-            }
-
-            @Nullable
-            @Override
-            public <T> T get(@NonNull Preferences.Key<T> key) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public Map<Preferences.Key<?>, Object> asMap() {
-                return null;
-            }
-        };
-        Preferences.Key<String> PREF_KEY = PreferencesKeys.stringKey(Key);
-        Single<Preferences> updateResult = dataStoreRX.updateDataAsync(prefsIn -> {
-            MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
-            mutablePreferences.set(PREF_KEY, value);
-            return Single.just(mutablePreferences);
-        }).onErrorReturnItem(pref_error);
-
-        returnvalue = updateResult.blockingGet() != pref_error;
-        return returnvalue;
-    }
-
-    String getStringValue(String Key) {
-        Preferences.Key<String> PREF_KEY = PreferencesKeys.stringKey(Key);
-        Single<String> value = dataStoreRX.data().firstOrError().map(prefs -> prefs.get(PREF_KEY)).onErrorReturnItem("null");
-        return value.blockingGet();
-    }
 
     public void sortAssessments() {
         int n = assessments.size();

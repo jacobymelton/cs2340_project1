@@ -47,6 +47,7 @@ public class ClassesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentClassesBinding.inflate(inflater, container, false);
+        loadData();
         return binding.getRoot();
     }
 
@@ -59,7 +60,6 @@ public class ClassesFragment extends Fragment {
 
         classList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
-        loadData();
 
 
 
@@ -75,6 +75,7 @@ public class ClassesFragment extends Fragment {
                 } else {
                     classes.remove(pos);
                     classes.add(pos, course);
+                    Toast.makeText(getActivity(), "Class has already been added", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -118,25 +119,23 @@ public class ClassesFragment extends Fragment {
 
 
     private void saveData() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Gson gson = new Gson();
         String jsonString = gson.toJson(classes);
-        editor.putString(SHARED_PREFS_KEY, jsonString);
+        editor.putString("classes list", jsonString);
         editor.apply();
     }
 
     private void loadData() {
-        SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sp.getString(SHARED_PREFS_KEY, "");
-
-        if (json.isEmpty()) {
-            return;
-        }
-
+        String json = sp.getString("classes list", null);
         Type type = new TypeToken<ArrayList<Course>>(){}.getType();
-        classes.addAll((gson.fromJson(json, type)));
+        classes = gson.fromJson(json, type);
+        if (classes == null) {
+            classes = new ArrayList<>();
+        }
     }
 
 }

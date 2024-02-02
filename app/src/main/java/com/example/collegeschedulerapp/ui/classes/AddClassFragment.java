@@ -46,7 +46,7 @@ public class AddClassFragment extends Fragment {
         binding.classSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos = AddAssessmentFragmentArgs.fromBundle(getArguments()).getPosition();
+                int pos = AddClassFragmentArgs.fromBundle(getArguments()).getPos();
                 String name = binding.className.getText().toString();
                 String time = binding.classTime.getText().toString();
                 String prof = binding.classProf.getText().toString();
