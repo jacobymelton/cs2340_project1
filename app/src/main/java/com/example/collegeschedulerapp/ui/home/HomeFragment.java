@@ -5,17 +5,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.collegeschedulerapp.AssignmentsActivity;
+import com.example.collegeschedulerapp.AssignmentsActivity;
 import com.example.collegeschedulerapp.ClassesActivity;
-import com.example.collegeschedulerapp.MainActivity;
+import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentHomeBinding;
+
+import android.content.Context;
+import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
 
@@ -36,6 +41,20 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        binding.assignmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AssignmentsActivity.class);
+                startActivity(i);
+                //NavHostFragment.findNavController(HomeFragment.this)
+                  //      .navigate(R.id.navigation_home_to_navigation_assignments);
+                //Toast toast = Toast.makeText(getActivity().getApplicationContext(), "hello world", Toast.LENGTH_SHORT);
+                //toast.show();
+            }
+        });
+
+
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
