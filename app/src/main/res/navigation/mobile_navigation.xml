@@ -41,11 +41,38 @@
         android:label="@string/menu_tasks"
         tools:layout="@layout/activity_task" />
 
-    <activity
+    <fragment
         android:id="@+id/nav_classes"
-        android:name="com.example.collegeschedulerapp.ClassesActivity"
+        android:name="com.example.collegeschedulerapp.ui.classes.ClassesFragment"
         android:label="@string/menu_classes"
-        tools:layout="@layout/activity_classes" />
+        tools:layout="@layout/fragment_classes" >
+        <action
+            android:id="@+id/action_nav_classes_to_nav_add_class"
+            app:destination="@id/nav_add_class" />
+        <argument
+            android:name="course"
+            app:argType="com.example.collegeschedulerapp.ui.classes.Course"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="pos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_class"
+        android:name="com.example.collegeschedulerapp.ui.classes.AddClassFragment"
+        android:label="Add Class"
+        tools:layout="@layout/fragment_add_class" >
+        <action
+            android:id="@+id/action_nav_add_class_to_nav_classes"
+            app:destination="@id/nav_classes" />
+        <argument
+            android:name="pos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_assignments"

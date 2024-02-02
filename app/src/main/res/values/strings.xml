@@ -46,4 +46,5 @@
     <string name="save_assessment_information">Save assessment information</string>
     <string name="time">Time</string>
     <string name="college_scheduler_app">College Scheduler App</string>
+    <string name="classes">Classes</string>
 </resources>

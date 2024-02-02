@@ -1,9 +1,7 @@
 package com.example.collegeschedulerapp.ui.assessments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,17 +10,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.collegeschedulerapp.ClassesActivity;
-import com.example.collegeschedulerapp.Course;
-import com.example.collegeschedulerapp.MainActivity;
-import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentAddAssessmentBinding;
-import com.example.collegeschedulerapp.databinding.FragmentAddClassBinding;
-import com.example.collegeschedulerapp.ui.AddClassFragment;
 
 public class AddAssessmentFragment extends Fragment {
 

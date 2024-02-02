@@ -1,23 +1,15 @@
 package com.example.collegeschedulerapp.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.collegeschedulerapp.ClassesActivity;
-import com.example.collegeschedulerapp.Course;
-import com.example.collegeschedulerapp.MainActivity;
-import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {

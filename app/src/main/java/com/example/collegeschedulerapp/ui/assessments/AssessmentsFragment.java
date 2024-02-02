@@ -2,60 +2,54 @@ package com.example.collegeschedulerapp.ui.assessments;
 
 
 import static android.content.Context.MODE_PRIVATE;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.datastore.preferences.core.MutablePreferences;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.core.PreferencesKeys;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.DisplayCutout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Map;
 
-import com.example.collegeschedulerapp.ClassesActivity;
-import com.example.collegeschedulerapp.Course;
-import com.example.collegeschedulerapp.MainActivity;
 import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentAssessmentsBinding;
-import com.example.collegeschedulerapp.ui.AddClassFragment;
 import com.example.collegeschedulerapp.ui.Date;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import io.reactivex.Single;
+
 public class AssessmentsFragment extends Fragment {
 
     private FragmentAssessmentsBinding binding;
-    private static final String SHARED_PREFS = "persist data";
-    private static final String SHARED_PREFS_KEY = "list";
+    //private static final String SHARED_PREFS = "persist data";
+    //private static final String SHARED_PREFS_KEY = "list";
+
+    RxDataStore<Preferences> dataStoreRX;
     ListView assessmentList;
     ArrayList<Assessment> assessments = new ArrayList<>();
     ArrayAdapter<Assessment> listAdapter;
     Button addButton;
-    Button homeButton;
-    private String edit_text = "";
-    private String input_text = "";
+
 
 
 
@@ -63,6 +57,7 @@ public class AssessmentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAssessmentsBinding.inflate(inflater, container, false);
+        dataStoreRX = new RxPreferenceDataStoreBuilder(getActivity(), "assessments").build();
         return binding.getRoot();
     }
 
@@ -75,7 +70,6 @@ public class AssessmentsFragment extends Fragment {
 
         assessmentList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
-        loadData();
 
 
 
@@ -98,7 +92,6 @@ public class AssessmentsFragment extends Fragment {
             }
             sortAssessments();
             listAdapter.notifyDataSetChanged();
-            saveData();
         }
 
         assessmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,7 +112,6 @@ public class AssessmentsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         assessments.remove(i);
                         listAdapter.notifyDataSetChanged();
-                        saveData();
                     }
                 }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -139,6 +131,7 @@ public class AssessmentsFragment extends Fragment {
     }
 
 
+    /*
     private void saveData() {
         SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -151,14 +144,52 @@ public class AssessmentsFragment extends Fragment {
     private void loadData() {
         SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sp.getString(SHARED_PREFS_KEY, "");
-
+        String json = sp.getString(SHARED_PREFS_KEY, null);
         if (json.isEmpty()) {
             return;
         }
 
         Type type = new TypeToken<ArrayList<Assessment>>(){}.getType();
         assessments.addAll((gson.fromJson(json, type)));
+    }
+
+     */
+
+    public boolean putStringValue(String Key, String value) {
+        boolean returnvalue;
+        Preferences pref_error = new Preferences() {
+            @Override
+            public <T> boolean contains(@NonNull Preferences.Key<T> key) {
+                return false;
+            }
+
+            @Nullable
+            @Override
+            public <T> T get(@NonNull Preferences.Key<T> key) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public Map<Preferences.Key<?>, Object> asMap() {
+                return null;
+            }
+        };
+        Preferences.Key<String> PREF_KEY = PreferencesKeys.stringKey(Key);
+        Single<Preferences> updateResult = dataStoreRX.updateDataAsync(prefsIn -> {
+            MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
+            mutablePreferences.set(PREF_KEY, value);
+            return Single.just(mutablePreferences);
+        }).onErrorReturnItem(pref_error);
+
+        returnvalue = updateResult.blockingGet() != pref_error;
+        return returnvalue;
+    }
+
+    String getStringValue(String Key) {
+        Preferences.Key<String> PREF_KEY = PreferencesKeys.stringKey(Key);
+        Single<String> value = dataStoreRX.data().firstOrError().map(prefs -> prefs.get(PREF_KEY)).onErrorReturnItem("null");
+        return value.blockingGet();
     }
 
     public void sortAssessments() {
