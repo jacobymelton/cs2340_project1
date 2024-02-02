@@ -12,10 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.collegeschedulerapp.ClassesActivity;
 import com.example.collegeschedulerapp.Course;
 import com.example.collegeschedulerapp.MainActivity;
+import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -35,6 +37,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ClassesActivity.class);
                 startActivity(i);
+            }
+        });
+
+        binding.assessmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_nav_home_to_nav_assessments);
             }
         });
 

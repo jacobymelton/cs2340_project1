@@ -13,6 +13,10 @@ public class Course {
         this.time = time;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @NonNull
     @Override
     public String toString() {
