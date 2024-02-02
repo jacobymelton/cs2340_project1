@@ -19,7 +19,7 @@
     <string name="classes_fragment_text">Classes</string>
     <string name="new_activity_text">This is the new activity.</string>
     <string name="assessments_fragment_text">This is the assessments fragment.</string>
-    <string name="tasks_fragment_text">This is the tasks fragment.</string>
+    <string name="tasks_fragment_text">Tasks</string>
     <string name="home_welcome_message">Welcome to the College Scheduler App</string>
     <string name="home_assessment_button">Add new assessment</string>
     <string name="home_assignment_button">Add new assignment</string>
@@ -48,4 +48,9 @@
     <string name="college_scheduler_app">College Scheduler App</string>
     <string name="classes">Classes</string>
     <string name="class_id">Class ID</string>
+    <string name="taskName">Name</string>
+    <string name="enter_task_hint">Name</string>
+    <string name="taskButtonText">Add</string>
+    <string name="view_tasks">View Tasks</string>
+
 </resources>

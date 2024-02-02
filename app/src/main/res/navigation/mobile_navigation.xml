@@ -35,8 +35,17 @@
             android:defaultValue="0" />
     </fragment>
 
-    <activity
+    <fragment
         android:id="@+id/nav_tasks"
+        android:name="com.example.collegeschedulerapp.ui.tasks.TasksFragment"
+        android:label="@string/menu_tasks"
+        tools:layout="@layout/fragment_tasks" >
+
+
+    </fragment>
+
+    <activity
+        android:id="@+id/nav_tasks_activity"
         android:name="com.example.collegeschedulerapp.TaskActivity"
         android:label="@string/menu_tasks"
         tools:layout="@layout/activity_task" />
