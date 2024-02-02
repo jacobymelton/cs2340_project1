@@ -25,14 +25,6 @@ public class Assessment implements Parcelable {
         this.location = location;
     }
 
-    public Assessment() {
-        this.name = "empty";
-        this.course = "";
-        this.time = "";
-        this.date = "";
-        this.location = "";
-    }
-
     protected Assessment(Parcel in) {
         name = in.readString();
         course = in.readString();
@@ -43,6 +35,22 @@ public class Assessment implements Parcelable {
 
     public Date getDate() {
         return new Date(date);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getCourse() {
+        return course;
     }
 
     @NonNull

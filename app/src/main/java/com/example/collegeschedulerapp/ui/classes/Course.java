@@ -26,6 +26,14 @@ public class Course implements Parcelable {
         return this.name;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public String getProf() {
+        return prof;
+    }
+
     @NonNull
     @Override
     public String toString() {

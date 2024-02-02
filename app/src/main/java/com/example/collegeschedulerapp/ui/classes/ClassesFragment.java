@@ -12,13 +12,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Type;
@@ -27,7 +29,6 @@ import java.util.ArrayList;
 
 import com.example.collegeschedulerapp.R;
 import com.example.collegeschedulerapp.databinding.FragmentClassesBinding;
-import com.example.collegeschedulerapp.ui.classes.ClassesFragmentDirections;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +39,7 @@ public class ClassesFragment extends Fragment {
     private static final String SHARED_PREFS_KEY = "list";
     ListView classList;
     ArrayList<Course> classes = new ArrayList<>();
-    ArrayAdapter<Course> listAdapter;
+    ClassAdapter listAdapter;
     Button addButton;
 
 
@@ -56,11 +57,10 @@ public class ClassesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         addButton = (Button) view.findViewById(R.id.button_addClasses);
         classList = (ListView) view.findViewById(R.id.classList);
-        listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, classes);
+        listAdapter = new ClassAdapter(this.getContext(), classes);
 
         classList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
-
 
 
         Course course = ClassesFragmentArgs.fromBundle(getArguments()).getCourse();
@@ -86,10 +86,10 @@ public class ClassesFragment extends Fragment {
         classList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                new AlertDialog.Builder(getActivity()).setTitle("Edit or remove " + classes.get(i) + " from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getActivity()).setTitle("Edit or remove class from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ClassesFragmentDirections.ActionNavClassesToNavAddClass action = ClassesFragmentDirections.actionNavClassesToNavAddClass().setPos(i);
+                        ClassesFragmentDirections.ActionNavClassesToNavAddClass action = ClassesFragmentDirections.actionNavClassesToNavAddClass().setPos(i).setCourse(classes.get(i));
                         NavHostFragment.findNavController(ClassesFragment.this).navigate(action);
                     }
 
@@ -108,6 +108,7 @@ public class ClassesFragment extends Fragment {
                 }).create().show();
             }
         });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +117,6 @@ public class ClassesFragment extends Fragment {
             }
         });
     }
-
 
     private void saveData() {
         SharedPreferences sp = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);

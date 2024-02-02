@@ -37,6 +37,15 @@ public class AddAssessmentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Assessment in = AddAssessmentFragmentArgs.fromBundle(getArguments()).getAssessment();
+        if (in != null) {
+            binding.assessmentDate.setText(in.getDate().toString());
+            binding.assessmentCourse.setText(in.getCourse());
+            binding.assessmentName.setText(in.getName());
+            binding.assessmentLocation.setText(in.getLocation());
+            binding.assessmentTime.setText(in.getTime());
+        }
+
         binding.assessmentSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +55,7 @@ public class AddAssessmentFragment extends Fragment {
                 String date = binding.assessmentDate.getText().toString();
                 String time = binding.assessmentTime.getText().toString();
                 String location = binding.assessmentLocation.getText().toString();
-                if (name.trim().equals("") || course.trim().equals("") || date.trim().equals("")) {
+                if (name.trim().equals("") || course.trim().equals("") || date.trim().equals("") || time.trim().equals("") || location.trim().equals("")) {
                     Toast.makeText(getActivity(), "An item is empty", Toast.LENGTH_SHORT).show();
                     AddAssessmentFragmentDirections.ActionAddAssessmentToAssessments action = AddAssessmentFragmentDirections.actionAddAssessmentToAssessments();
                     NavHostFragment.findNavController(AddAssessmentFragment.this).navigate(action);

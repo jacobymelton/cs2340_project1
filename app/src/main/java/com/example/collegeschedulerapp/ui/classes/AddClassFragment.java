@@ -42,6 +42,12 @@ public class AddClassFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Course in = AddClassFragmentArgs.fromBundle(getArguments()).getCourse();
+        if (in != null) {
+            binding.className.setText(in.getName());
+            binding.classTime.setText(in.getTime());
+            binding.classProf.setText(in.getProf());
+        }
 
         binding.classSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override

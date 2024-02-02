@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#00673AB7"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/className"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background"
+        android:paddingHorizontal="10dp"
+        android:text="Class Name"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/classTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:text="Class Time"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/classProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class Professor"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+</LinearLayout>
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:hint="@string/class_name_text"
+        android:hint="@string/class_id"
         android:inputType="text" />
 
     <EditText

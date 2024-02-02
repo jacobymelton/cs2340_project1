@@ -76,7 +76,7 @@ public class AssessmentsFragment extends Fragment {
 
         } else {
             if (assessments.contains(assessment)) {
-                Toast.makeText(getActivity(), "Class has already been added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Assessment has already been added", Toast.LENGTH_SHORT).show();
             } else {
                 if (pos == assessments.size()) {
                     assessments.add(pos, assessment);
@@ -97,10 +97,10 @@ public class AssessmentsFragment extends Fragment {
                 //final EditText input = new EditText(ClassesActivity.this);
                 //input.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                new AlertDialog.Builder(getActivity()).setTitle("Edit or remove " + assessments.get(i) + " from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getActivity()).setTitle("Edit or remove assessment from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AssessmentsFragmentDirections.ActionAssessmentsToAddAssessment action = AssessmentsFragmentDirections.actionAssessmentsToAddAssessment().setPosition(i);
+                        AssessmentsFragmentDirections.ActionAssessmentsToAddAssessment action = AssessmentsFragmentDirections.actionAssessmentsToAddAssessment().setAssessment(assessments.get(i)).setPosition(i);
                         NavHostFragment.findNavController(AssessmentsFragment.this).navigate(action);
                     }
 

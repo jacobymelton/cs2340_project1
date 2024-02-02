@@ -22,13 +22,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/add_assessment_button" />
+        android:text="@string/add_assessment_button"
+        android:layout_marginVertical="20dp"/>
 
 
     <ListView
         android:id="@+id/assessmentList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
         app:layout_constraintStart_toStartOf="parent" />
 
 </LinearLayout>
