@@ -35,8 +35,6 @@ import com.google.gson.reflect.TypeToken;
 public class ClassesFragment extends Fragment {
 
     private FragmentClassesBinding binding;
-    private static final String SHARED_PREFS = "persist data";
-    private static final String SHARED_PREFS_KEY = "list";
     ListView classList;
     ArrayList<Course> classes = new ArrayList<>();
     ClassAdapter listAdapter;
@@ -75,7 +73,6 @@ public class ClassesFragment extends Fragment {
                 } else {
                     classes.remove(pos);
                     classes.add(pos, course);
-                    Toast.makeText(getActivity(), "Class has already been added", Toast.LENGTH_SHORT).show();
                 }
 
             }

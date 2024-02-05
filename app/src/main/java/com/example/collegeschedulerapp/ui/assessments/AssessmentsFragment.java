@@ -43,7 +43,7 @@ public class AssessmentsFragment extends Fragment {
 
     ListView assessmentList;
     ArrayList<Assessment> assessments = new ArrayList<>();
-    ArrayAdapter<Assessment> listAdapter;
+    AssessmentAdapter listAdapter;
     Button addButton;
 
 
@@ -62,7 +62,7 @@ public class AssessmentsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         addButton = (Button) view.findViewById(R.id.button_addAssessment);
         assessmentList = (ListView) view.findViewById(R.id.assessmentList);
-        listAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, assessments);
+        listAdapter = new AssessmentAdapter(this.getContext(), assessments);
 
         assessmentList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();

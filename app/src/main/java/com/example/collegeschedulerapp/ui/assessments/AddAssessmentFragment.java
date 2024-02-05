@@ -59,6 +59,8 @@ public class AddAssessmentFragment extends Fragment {
                     Toast.makeText(getActivity(), "An item is empty", Toast.LENGTH_SHORT).show();
                     AddAssessmentFragmentDirections.ActionAddAssessmentToAssessments action = AddAssessmentFragmentDirections.actionAddAssessmentToAssessments();
                     NavHostFragment.findNavController(AddAssessmentFragment.this).navigate(action);
+                } else if (!checkDate(date)) {
+                    Toast.makeText(getActivity(), "Please enter date in MM/DD/YY format.", Toast.LENGTH_SHORT).show();
                 } else {
                     Assessment assessment = new Assessment(name, course, date, time, location);
                     binding.assessmentName.setText("");
@@ -88,6 +90,21 @@ public class AddAssessmentFragment extends Fragment {
     public void onStop() {
         super.onStop();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
+    public boolean checkDate(String date) {
+        if (!(date.contains("/"))) {
+            return false;
+        } else if (date.substring(0, date.indexOf('/')).length() > 2) {
+            return false;
+        }
+        date = date.substring(date.indexOf('/') + 1);
+        if (date.substring(0, date.indexOf('/')).length() > 2) {
+            return false;
+        } else if (date.substring(date.indexOf('/') + 1).length() > 2) {
+            return false;
+        }
+        return true;
     }
 
     public void onDestroyView() {
