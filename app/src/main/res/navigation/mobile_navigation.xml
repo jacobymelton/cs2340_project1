@@ -37,12 +37,28 @@
 
     <fragment
         android:id="@+id/nav_tasks"
-        android:name="com.example.collegeschedulerapp.ui.tasks.TasksFragment"
+        android:name="com.example.collegeschedulerapp.ui.tasks.AddTaskFragment"
         android:label="@string/menu_tasks"
         tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_AddTask_to_AddTask"
+            app:destination="@id/nav_tasks" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_tasks_list"
+        android:name="com.example.collegeschedulerapp.ui.tasks.TasksFragment"
+        android:label="@string/menu_tasks"
+        tools:layout="@layout/fragment_tasks_list" >
+
+        <action
+            android:id="@+id/action_TaskList_to_AddTask"
+            app:destination="@id/nav_tasks" />
 
 
     </fragment>
+
 
     <activity
         android:id="@+id/nav_tasks_activity"
@@ -99,6 +115,8 @@
         android:name="com.example.collegeschedulerapp.ui.newtab.NewTabActivity"
         android:label="@string/menu_newtab"
         tools:layout="@layout/activity_newtab" />
+
+
 
     <fragment
         android:id="@+id/nav_add_assessment"

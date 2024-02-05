@@ -9,7 +9,7 @@ import com.example.collegeschedulerapp.ui.Date;
 
 import kotlinx.parcelize.Parcelize;
 
-@Parcelize
+//@Parcelize
 public class Assessment implements Parcelable {
     private String course;
     private String date;

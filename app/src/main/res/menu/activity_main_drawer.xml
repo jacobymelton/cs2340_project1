@@ -13,7 +13,7 @@
             android:icon="@drawable/assessments_icon"
             android:title="@string/menu_assessments" />
         <item
-            android:id="@+id/nav_tasks"
+            android:id="@+id/nav_tasks_list"
             android:icon="@drawable/tasks_icon"
             android:title="@string/menu_tasks" />
 

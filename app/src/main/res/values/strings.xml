@@ -52,5 +52,7 @@
     <string name="enter_task_hint">Name</string>
     <string name="taskButtonText">Add</string>
     <string name="view_tasks">View Tasks</string>
+    <string name="saveTask">Save</string>
+    <string name="title">Title:</string>
 
 </resources>
