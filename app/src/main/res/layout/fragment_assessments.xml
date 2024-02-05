@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/add_assessment_button"
-        android:layout_marginVertical="20dp"/>
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/round_background"/>
 
 
     <ListView

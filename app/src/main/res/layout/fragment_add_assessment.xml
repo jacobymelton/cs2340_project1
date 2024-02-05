@@ -59,7 +59,8 @@
         android:layout_height="wrap_content"
         android:text="@string/save_assessment_information"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_background"/>
 
     <Button
         android:id="@+id/assessment_cancel_button"
@@ -67,7 +68,8 @@
         android:layout_height="wrap_content"
         android:text="@string/cancel"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_background"/>
 
 
 

@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="20dp"
-        android:text="@string/add_class_button" />
+        android:text="@string/add_class_button"
+        android:background="@drawable/round_background"/>
 
 
     <ListView
