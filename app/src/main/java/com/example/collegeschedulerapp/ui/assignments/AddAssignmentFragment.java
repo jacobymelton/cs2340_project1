@@ -43,6 +43,7 @@ public class AddAssignmentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Assignment in = AddAssignmentFragmentArgs.fromBundle(getArguments()).getAssignment();
+        boolean toggle = AddAssignmentFragmentArgs.fromBundle(getArguments()).getToggle();
         if (in != null) {
             binding.assignmentDate.setText(in.getDate().toString());
             binding.assignmentCourse.setText(in.getCourse());
@@ -58,7 +59,7 @@ public class AddAssignmentFragment extends Fragment {
                 String date = binding.assignmentDate.getText().toString();
                 if (name.trim().equals("") || course.trim().equals("") || date.trim().equals("")) {
                     Toast.makeText(getActivity(), "An item is empty", Toast.LENGTH_SHORT).show();
-                    AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments();
+                    AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments().setToggle(toggle);
                     NavHostFragment.findNavController(AddAssignmentFragment.this).navigate(action);
                 } else if (!checkDate(date)) {
                     Toast.makeText(getActivity(), "Please enter due date in MM/DD/YY format.", Toast.LENGTH_SHORT).show();
@@ -67,7 +68,7 @@ public class AddAssignmentFragment extends Fragment {
                     binding.assignmentDate.setText("");
                     binding.assignmentCourse.setText("");
                     binding.assignmentName.setText("");
-                    AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments().setAssignment(assignment).setPos(pos);
+                    AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments().setAssignment(assignment).setPos(pos).setToggle(toggle);
                     NavHostFragment.findNavController(AddAssignmentFragment.this).navigate(action);
                 }
             }
@@ -76,7 +77,7 @@ public class AddAssignmentFragment extends Fragment {
         binding.assignmentCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments();
+                AddAssignmentFragmentDirections.ActionNavAddAssignmentToNavAssignments action = AddAssignmentFragmentDirections.actionNavAddAssignmentToNavAssignments().setToggle(toggle);
                 NavHostFragment.findNavController(AddAssignmentFragment.this).navigate(action);
             }
         });

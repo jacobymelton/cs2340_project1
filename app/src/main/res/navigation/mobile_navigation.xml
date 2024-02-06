@@ -121,6 +121,10 @@
             android:name="pos"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="toggle"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -140,6 +144,10 @@
             app:argType="com.example.collegeschedulerapp.ui.assignments.Assignment"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="toggle"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <activity

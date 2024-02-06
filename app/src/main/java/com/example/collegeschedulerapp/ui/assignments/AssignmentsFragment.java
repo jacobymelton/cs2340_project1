@@ -6,42 +6,31 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.datastore.preferences.core.MutablePreferences;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.core.PreferencesKeys;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.example.collegeschedulerapp.R;
-import com.example.collegeschedulerapp.databinding.FragmentAssessmentsBinding;
 import com.example.collegeschedulerapp.databinding.FragmentAssignmentsBinding;
 import com.example.collegeschedulerapp.ui.Date;
-import com.example.collegeschedulerapp.ui.assessments.Assessment;
-import com.example.collegeschedulerapp.ui.assessments.AssessmentAdapter;
-import com.example.collegeschedulerapp.ui.assessments.AssessmentsFragment;
-import com.example.collegeschedulerapp.ui.assessments.AssessmentsFragmentArgs;
-import com.example.collegeschedulerapp.ui.assessments.AssessmentsFragmentDirections;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
-import io.reactivex.Single;
 
 public class AssignmentsFragment extends Fragment {
 
@@ -51,6 +40,8 @@ public class AssignmentsFragment extends Fragment {
     ArrayList<Assignment> assignments = new ArrayList<>();
     AssignmentAdapter listAdapter;
     Button addButton;
+    ToggleButton sortToggle;
+    boolean toggle;
 
 
 
@@ -67,11 +58,20 @@ public class AssignmentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addButton = (Button) view.findViewById(R.id.button_addAssignment);
+        sortToggle = (ToggleButton) view.findViewById(R.id.toggle_sort);
         assignmentList = (ListView) view.findViewById(R.id.assignmentList);
         listAdapter = new AssignmentAdapter(this.getContext(), assignments);
 
         assignmentList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
+
+        toggle = AssignmentsFragmentArgs.fromBundle(getArguments()).getToggle();
+
+        if (toggle) {
+            sortToggle.setChecked(true);
+        } else {
+            sortToggle.setChecked(false);
+        }
 
 
 
@@ -92,10 +92,14 @@ public class AssignmentsFragment extends Fragment {
                 }
 
             }
-            sortByDate();
-            listAdapter.notifyDataSetChanged();
-            saveData();
         }
+        if (toggle) {
+            sortByCourse();
+        } else {
+            sortByDate();
+        }
+        listAdapter.notifyDataSetChanged();
+        saveData();
 
         assignmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,7 +108,7 @@ public class AssignmentsFragment extends Fragment {
                 new AlertDialog.Builder(getActivity()).setTitle("Edit or remove assignment from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AssignmentsFragmentDirections.ActionNavAssignmentsToNavAddAssignment action = AssignmentsFragmentDirections.actionNavAssignmentsToNavAddAssignment().setAssignment(assignments.get(i)).setPos(i);
+                        AssignmentsFragmentDirections.ActionNavAssignmentsToNavAddAssignment action = AssignmentsFragmentDirections.actionNavAssignmentsToNavAddAssignment().setAssignment(assignments.get(i)).setPos(i).setToggle(toggle);
                         NavHostFragment.findNavController(AssignmentsFragment.this).navigate(action);
                     }
 
@@ -126,8 +130,23 @@ public class AssignmentsFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AssignmentsFragmentDirections.ActionNavAssignmentsToNavAddAssignment action = AssignmentsFragmentDirections.actionNavAssignmentsToNavAddAssignment().setPos(assignments.size());
+                AssignmentsFragmentDirections.ActionNavAssignmentsToNavAddAssignment action = AssignmentsFragmentDirections.actionNavAssignmentsToNavAddAssignment().setPos(assignments.size()).setToggle(toggle);
                 NavHostFragment.findNavController(AssignmentsFragment.this).navigate(action);
+            }
+        });
+
+        sortToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    toggle = true;
+                    sortByCourse();
+                } else {
+                    toggle = false;
+                    sortByDate();
+                }
+                listAdapter.notifyDataSetChanged();
+                saveData();
             }
         });
     }
@@ -171,6 +190,24 @@ public class AssignmentsFragment extends Fragment {
             assignments.set(min, assignments.get(i));
             assignments.set(i, temp);
         }
+    }
+
+    private void sortByCourse() {
+        int n = assignments.size();
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < n; j++) {
+                String course1 = assignments.get(j).getCourse();
+                String course2 = assignments.get(min).getCourse();
+                if (course1.compareToIgnoreCase(course2) < 0) {
+                    min = j;
+                }
+            }
+            Assignment temp = assignments.get(min);
+            assignments.set(min, assignments.get(i));
+            assignments.set(i, temp);
+        }
+
     }
 
 
