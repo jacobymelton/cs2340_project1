@@ -44,7 +44,7 @@ public class Assignment implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        return String.format("%s\nClass: %s\n%s", name, course, date);
+        return String.format("%s\n%s", name, course);
     }
 
     @Override

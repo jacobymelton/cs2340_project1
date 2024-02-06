@@ -56,7 +56,7 @@ public class Assessment implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        return String.format("%s\nClass: %s\n%s\n%s\nLocation: %s", name, course, date, time, location);
+        return String.format("%s\t\t%s\n%s\t\t%s", name, course, location, time);
     }
 
     @Override

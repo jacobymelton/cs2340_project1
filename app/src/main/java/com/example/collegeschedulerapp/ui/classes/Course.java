@@ -37,7 +37,7 @@ public class Course implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        return String.format("%s\nProfessor: %s\n%s", name, prof, time);
+        return String.format("%s\nProfessor: %s\t\t%s", name, prof, time);
     }
 
     @Override

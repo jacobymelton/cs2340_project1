@@ -34,7 +34,7 @@ public class Date implements Comparable<Date> {
         } else if (this.day < d.day) {
             return -1;
         } else {
-            return 1;
+            return 0;
         }
     }
 
