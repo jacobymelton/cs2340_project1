@@ -108,7 +108,39 @@
         android:id="@+id/nav_assignments"
         android:name="com.example.collegeschedulerapp.ui.assignments.AssignmentsFragment"
         android:label="@string/menu_assignments"
-        tools:layout="@layout/fragment_assignments" />
+        tools:layout="@layout/fragment_assignments" >
+        <action
+            android:id="@+id/action_nav_assignments_to_nav_add_assignment"
+            app:destination="@id/nav_add_assignment" />
+        <argument
+            android:name="assignment"
+            app:argType="com.example.collegeschedulerapp.ui.assignments.Assignment"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="pos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_assignment"
+        android:name="com.example.collegeschedulerapp.ui.assignments.AddAssignmentFragment"
+        android:label="Add Assignment"
+        tools:layout="@layout/fragment_add_assignment" >
+        <action
+            android:id="@+id/action_nav_add_assignment_to_nav_assignments"
+            app:destination="@id/nav_assignments" />
+        <argument
+            android:name="pos"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="assignment"
+            app:argType="com.example.collegeschedulerapp.ui.assignments.Assignment"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <activity
         android:id="@+id/nav_newtab"
