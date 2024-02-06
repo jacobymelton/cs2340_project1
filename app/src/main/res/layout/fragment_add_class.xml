@@ -34,6 +34,15 @@
         android:hint="@string/class_time_text"
         android:inputType="text" />
 
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/class_days"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:hint="Weekdays, separated by commas"
+        android:inputType="text" />
+
 
     <Button
         android:id="@+id/class_save_button"

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.collegeschedulerapp.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ClassAdapter extends ArrayAdapter<Course> {
@@ -27,10 +29,12 @@ public class ClassAdapter extends ArrayAdapter<Course> {
         TextView className = (TextView) convertView.findViewById(R.id.className);
         TextView classTime = (TextView) convertView.findViewById(R.id.classTime);
         TextView classProf = (TextView) convertView.findViewById(R.id.classProf);
+        TextView classDays = (TextView) convertView.findViewById(R.id.classDays);
 
         className.setText(course.getName());
         classTime.setText(course.getTime());
         classProf.setText(course.getProf());
+        classDays.setText(course.getDays());
 
         return convertView;
     }

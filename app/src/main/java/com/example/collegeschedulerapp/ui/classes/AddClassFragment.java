@@ -47,6 +47,7 @@ public class AddClassFragment extends Fragment {
             binding.className.setText(in.getName());
             binding.classTime.setText(in.getTime());
             binding.classProf.setText(in.getProf());
+            binding.classDays.setText(in.getDays());
         }
 
         binding.classSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -56,12 +57,14 @@ public class AddClassFragment extends Fragment {
                 String name = binding.className.getText().toString();
                 String time = binding.classTime.getText().toString();
                 String prof = binding.classProf.getText().toString();
-                if (name.trim().equals("") || time.trim().equals("") || prof.trim().equals("")) {
+                String days = binding.classDays.getText().toString();
+
+                if (name.trim().equals("") || time.trim().equals("") || prof.trim().equals("") || days.trim().equals("")) {
                     Toast.makeText(getActivity(), "An item is empty", Toast.LENGTH_SHORT).show();
                     AddClassFragmentDirections.ActionNavAddClassToNavClasses action = AddClassFragmentDirections.actionNavAddClassToNavClasses();
                     NavHostFragment.findNavController(AddClassFragment.this).navigate(action);
                 } else {
-                    Course course = new Course(name, prof, time);
+                    Course course = new Course(name, prof, time, days);
                     AddClassFragmentDirections.ActionNavAddClassToNavClasses action = AddClassFragmentDirections.actionNavAddClassToNavClasses().setCourse(course).setPos(pos);
                     NavHostFragment.findNavController(AddClassFragment.this).navigate(action);
                 }

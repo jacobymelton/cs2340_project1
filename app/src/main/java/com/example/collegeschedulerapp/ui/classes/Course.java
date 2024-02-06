@@ -9,17 +9,20 @@ public class Course implements Parcelable {
     private String name;
     private String prof;
     private String time;
+    private String days;
 
-    public Course(String name, String prof, String time) {
+    public Course(String name, String prof, String time, String days) {
         this.name = name;
         this.prof = prof;
         this.time = time;
+        this.days = days;
     }
 
     public Course(Parcel in) {
         name = in.readString();
         prof = in.readString();
         time = in.readString();
+        days = in.readString();
     }
 
     public String getName() {
@@ -32,6 +35,10 @@ public class Course implements Parcelable {
 
     public String getProf() {
         return prof;
+    }
+
+    public String getDays() {
+        return days;
     }
 
     @NonNull
@@ -50,5 +57,6 @@ public class Course implements Parcelable {
         dest.writeString(name);
         dest.writeString(prof);
         dest.writeString(time);
+        dest.writeString(days);
     }
 }

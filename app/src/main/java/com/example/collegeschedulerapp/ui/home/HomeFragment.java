@@ -42,6 +42,8 @@ public class HomeFragment extends Fragment {
     ListView todoList;
     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yy");
     String date = sdf.format(new java.util.Date());
+    SimpleDateFormat dow = new SimpleDateFormat("E");
+    String day = dow.format(new java.util.Date());
 
 
 
@@ -95,7 +97,8 @@ public class HomeFragment extends Fragment {
         while (date.contains("-")) {
             date = date.replace('-', '/');
         }
-        Date today = new Date(date);
+        Date todayDate = new Date(date);
+        String todayDay = day.substring(0, 2).toLowerCase();
         SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
 
@@ -108,7 +111,7 @@ public class HomeFragment extends Fragment {
 
         for (int i = 0; i < assignments.size(); i++) {
             Assignment obj = (Assignment) assignments.get(i);
-            if (obj.getDate().compareTo(today) == 0) {
+            if (obj.getDate().compareTo(todayDate) == 0) {
                 if (!(todo.contains(assignments.get(i)))) {
                     todo.add(assignments.get(i));
                 }
@@ -123,7 +126,22 @@ public class HomeFragment extends Fragment {
         }
         for (int i = 0; i < courses.size(); i++) {
             if (!(todo.contains(courses.get(i)))) {
-                todo.add(courses.get(i));
+                ArrayList<String> daysOfWeek = new ArrayList<>();
+                String dayOfWeek = ((Course) courses.get(i)).getDays();
+                boolean last = false;
+                while (!last) {
+                    if (!dayOfWeek.contains(",")) {
+                        last = true;
+                        daysOfWeek.add(dayOfWeek.substring(0, 2).toLowerCase());
+                    } else {
+                        String d = dayOfWeek.substring(0, dayOfWeek.indexOf(","));
+                        daysOfWeek.add(d.substring(0, 2).toLowerCase());
+                        dayOfWeek = dayOfWeek.substring(dayOfWeek.indexOf(",") + 1);
+                    }
+                }
+                if (daysOfWeek.contains(todayDay)) {
+                    todo.add(courses.get(i));
+                }
             }
         }
 
@@ -136,7 +154,7 @@ public class HomeFragment extends Fragment {
         }
         for (int i = 0; i < assessments.size(); i++) {
             Assessment obj = (Assessment) assessments.get(i);
-            if (obj.getDate().compareTo(today) == 0) {
+            if (obj.getDate().compareTo(todayDate) == 0) {
                 if (!(todo.contains(assessments.get(i)))) {
                     todo.add(assessments.get(i));
                 }

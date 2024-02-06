@@ -1,40 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="#00673AB7"
-    android:padding="10dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00673AB7">
 
     <TextView
         android:id="@+id/className"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/round_background"
         android:paddingHorizontal="10dp"
         android:text="Class Name"
-        android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_weight="1" />
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/classProf"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/classTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
         android:text="Class Time"
-        android:textStyle="italic"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_weight="1" />
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/classDays"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <TextView
         android:id="@+id/classProf"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Class Professor"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_weight="1" />
-</LinearLayout>
+        app:layout_constraintStart_toEndOf="@+id/className"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/classDays"
+        android:text="Class Days"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/className"
+        app:layout_constraintEnd_toStartOf="@+id/classTime"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
