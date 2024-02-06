@@ -8,11 +8,20 @@
     <TextView
         android:id="@+id/cellTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
+        android:layout_height="40dp"
+
         android:textColor="@color/black"
-        android:textSize="24sp"
-        android:maxLines="1"/>
+        android:textSize="24dp"
+        android:maxLines="1"
+
+        android:textStyle="bold"
+        android:background="@drawable/round_background"
+        android:paddingHorizontal="10dp"
+        android:text="@string/taskName"
+
+
+        android:layout_weight="1"
+        />
 
 
 </LinearLayout>

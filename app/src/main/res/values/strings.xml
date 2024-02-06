@@ -54,5 +54,6 @@
     <string name="view_tasks">View Tasks</string>
     <string name="saveTask">Save</string>
     <string name="title">Title:</string>
+    <string name="delete">Delete</string>
 
 </resources>
