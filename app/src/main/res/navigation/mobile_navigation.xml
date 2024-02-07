@@ -59,13 +59,6 @@
 
     </fragment>
 
-
-    <activity
-        android:id="@+id/nav_tasks_activity"
-        android:name="com.example.collegeschedulerapp.TaskActivity"
-        android:label="@string/menu_tasks"
-        tools:layout="@layout/activity_task" />
-
     <fragment
         android:id="@+id/nav_classes"
         android:name="com.example.collegeschedulerapp.ui.classes.ClassesFragment"
@@ -149,14 +142,6 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
-
-    <activity
-        android:id="@+id/nav_newtab"
-        android:name="com.example.collegeschedulerapp.ui.newtab.NewTabActivity"
-        android:label="@string/menu_newtab"
-        tools:layout="@layout/activity_newtab" />
-
-
 
     <fragment
         android:id="@+id/nav_add_assessment"
