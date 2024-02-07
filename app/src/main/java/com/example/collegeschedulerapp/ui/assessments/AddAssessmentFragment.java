@@ -19,7 +19,6 @@ public class AddAssessmentFragment extends Fragment {
     private FragmentAddAssessmentBinding binding;
 
     public AddAssessmentFragment() {
-        // Required empty public constructor
     }
 
 
@@ -81,6 +80,8 @@ public class AddAssessmentFragment extends Fragment {
         });
 
     }
+
+    // hide and show action bar tutorial: https://www.geeksforgeeks.org/different-ways-to-hide-action-bar-in-android-with-examples/
     @Override
     public void onResume() {
         super.onResume();

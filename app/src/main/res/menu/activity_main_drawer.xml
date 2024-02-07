@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <!-- Tutorial to make icons: https://developer.android.com/studio/write/create-app-icons -->
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -27,9 +29,5 @@
             android:icon="@drawable/class_icon"
             android:title="@string/menu_assignments" />
 
-        <item
-            android:id="@+id/nav_newtab"
-            android:icon="@drawable/newtab_icon"
-            android:title="@string/menu_newtab" />
     </group>
 </menu>

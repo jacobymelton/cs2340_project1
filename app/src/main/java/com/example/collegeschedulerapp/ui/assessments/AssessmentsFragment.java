@@ -94,8 +94,8 @@ public class AssessmentsFragment extends Fragment {
         assessmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                //final EditText input = new EditText(ClassesActivity.this);
-                //input.setInputType(InputType.TYPE_CLASS_TEXT);
+                // AlertDialog tutorial: https://developer.android.com/reference/android/app/AlertDialog.Builder
+                // Tutorial to pass arguments in bundle with SafeArgs: https://developer.android.com/codelabs/build-your-first-android-app#8
 
                 new AlertDialog.Builder(getActivity()).setTitle("Edit or remove assessment from the list?").setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
@@ -129,6 +129,11 @@ public class AssessmentsFragment extends Fragment {
     }
 
 
+    /*
+    Tutorials for Shared Preferences with Json and Gson:
+        https://medium.com/@evancheese1/shared-preferences-saving-arraylists-and-more-with-json-and-gson-java-5d899c8b0235
+        https://www.geeksforgeeks.org/how-to-save-arraylist-to-sharedpreferences-in-android/?ref=lbp
+     */
 
     private void saveData() {
         SharedPreferences sp = getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
