@@ -10,6 +10,7 @@ import com.example.collegeschedulerapp.ui.Date;
 import kotlinx.parcelize.Parcelize;
 
 //@Parcelize
+// tutorial to make class Parcelable: https://medium.com/techmacademy/how-to-implement-and-use-a-parcelable-class-in-android-part-1-28cca73fc2d1
 public class Assessment implements Parcelable {
     private String course;
     private String date;

@@ -14,6 +14,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+// Custom ArrayAdapter tutorial: https://www.geeksforgeeks.org/custom-arrayadapter-with-listview-in-android/
+
 public class AssessmentAdapter extends ArrayAdapter<Assessment> {
 
     public AssessmentAdapter(Context context, ArrayList<Assessment> assessments) {

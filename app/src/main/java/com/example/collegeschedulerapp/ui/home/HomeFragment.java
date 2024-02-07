@@ -37,9 +37,11 @@ import com.example.collegeschedulerapp.ui.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    ArrayAdapter<Object> listAdapter;
+    HomeAdapter listAdapter;
     ArrayList<Object> todo;
     ListView todoList;
+
+    // Simple Date Format tutorial: https://developer.android.com/reference/android/icu/text/SimpleDateFormat
     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yy");
     String date = sdf.format(new java.util.Date());
     SimpleDateFormat dow = new SimpleDateFormat("E");
@@ -55,26 +57,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        /*
-        binding.classButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ClassesActivity.class);
-                startActivity(i);
-            }
-        });
-
-        binding.assessmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_nav_home_to_nav_assessments);
-            }
-        });
-
-         */
-
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
@@ -86,7 +68,7 @@ public class HomeFragment extends Fragment {
         todoList = (ListView) view.findViewById(R.id.home_list);
         todo = new ArrayList<>();
         loadData();
-        listAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, todo);
+        listAdapter = new HomeAdapter(getContext(), todo);
         todoList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
 
@@ -132,9 +114,11 @@ public class HomeFragment extends Fragment {
                 while (!last) {
                     if (!dayOfWeek.contains(",")) {
                         last = true;
+                        dayOfWeek = dayOfWeek.trim();
                         daysOfWeek.add(dayOfWeek.substring(0, 2).toLowerCase());
                     } else {
                         String d = dayOfWeek.substring(0, dayOfWeek.indexOf(","));
+                        d = d.trim();
                         daysOfWeek.add(d.substring(0, 2).toLowerCase());
                         dayOfWeek = dayOfWeek.substring(dayOfWeek.indexOf(",") + 1);
                     }
