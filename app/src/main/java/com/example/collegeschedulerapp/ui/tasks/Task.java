@@ -47,7 +47,13 @@ public class Task {
 
 
     public String getDescription(){
-        return "Task added on " + getDeleted().toString();
+        String add;
+        if (getDeleted() == null) {
+            add = "null";
+        } else {
+            add = getDeleted().toString();
+        }
+        return "Task added on " + add;
     }
 
     public int getId() {
