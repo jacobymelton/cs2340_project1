@@ -1,6 +1,5 @@
 package com.example.collegeschedulerapp.ui.tasks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.collegeschedulerapp.R;
@@ -33,16 +31,27 @@ public class AddTaskFragment extends Fragment {
 
         titleEditText = (EditText) view.findViewById(R.id.editTaskName);
         deleteButton = (Button) view.findViewById(R.id.task_delete_button);
-        Button add = (Button) view.findViewById(R.id.enterTaskButton);
-        add.setOnClickListener(new View.OnClickListener() {
+
+
+        checkAddButton(view);
+        checkCancelButton(view);
+        checkDeleteButton();
+        checkForEditTask();
+
+        return view;
+    }
+
+    private void checkDeleteButton() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveTask(v);
-
+                deleteTask(v);
 
             }
         });
+    }
 
+    private void checkCancelButton(View view) {
         Button cancel = (Button) view.findViewById(R.id.task_cancel_button);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,24 +60,21 @@ public class AddTaskFragment extends Fragment {
                 NavHostFragment.findNavController(AddTaskFragment.this).popBackStack();
             }
         });
-
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteNote(v);
-                //NavHostFragment.findNavController(AddTaskFragment.this).popBackStack();
-            }
-        });
-
-       checkForEditNote();
-
-
-
-        return view;
     }
 
-    private void checkForEditNote()
+    private void checkAddButton(View view) {
+        Button add = (Button) view.findViewById(R.id.enterTaskButton);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTask(v);
+
+            }
+        });
+    }
+
+    private void checkForEditTask()
     {
         if (getArguments() != null) {
             int editTaskID = getArguments().getInt("id");
@@ -77,7 +83,6 @@ public class AddTaskFragment extends Fragment {
             if (selectedTask != null)
             {
                 titleEditText.setText(selectedTask.getTitle());
-                //selectedTask.setText(selectedNote.getDescription());
             }
             else
             {
@@ -106,7 +111,6 @@ public class AddTaskFragment extends Fragment {
         else
         {
             selectedTask.setTitle(title);
-            //selectedNote.setDescription(desc);
             sqLiteManager.updateTaskInDB(selectedTask);
         }
 
@@ -115,7 +119,7 @@ public class AddTaskFragment extends Fragment {
         //add in return to previous view
     }
 
-    public void deleteNote(View view) {
+    public void deleteTask(View view) {
         selectedTask.setDeleted(new Date());
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getContext());
         sqLiteManager.updateTaskInDB(selectedTask);

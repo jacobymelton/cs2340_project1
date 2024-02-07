@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TasksListAdapter extends ArrayAdapter<Task> {
+    //interface enabling each task to be added to the list
 
     public TasksListAdapter(Context context, List<Task> tasks) {
         super(context, 0, tasks);
@@ -42,11 +43,9 @@ public class TasksListAdapter extends ArrayAdapter<Task> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_task_cell, parent, false);
         }
 
-        //creating note cell, adding information, and returning it
+        //creating task cell, adding information, and returning it
         TextView title = convertView.findViewById(R.id.cellTitle);
         title.setText(task.getTitle());
-
-
 
         return convertView;
     }

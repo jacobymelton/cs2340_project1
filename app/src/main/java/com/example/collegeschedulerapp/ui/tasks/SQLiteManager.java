@@ -34,6 +34,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String DELETED_FIELD = "deleted";
 
 
+    //getting Date
     @SuppressLint("SimpleDateFormat")
     private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
@@ -73,16 +74,11 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion)
-    {
-//        switch (oldVersion)
-//        {
-//            case 1:
-//                sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + NEW_COLUMN + " TEXT");
-//            case 2:
-//                sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + NEW_COLUMN + " TEXT");
-//        }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //forced to implement
+        //not used in program
     }
+
 
     public void addTaskToDatabase(Task task)
     {

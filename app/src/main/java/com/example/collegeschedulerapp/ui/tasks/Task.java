@@ -8,7 +8,6 @@ public class Task {
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
     private int id;
     private String title;
-
     private Date deleted;
 
 
@@ -48,7 +47,7 @@ public class Task {
 
 
     public String getDescription(){
-        return "hello";
+        return "Task added on " + getDeleted().toString();
     }
 
     public int getId() {
